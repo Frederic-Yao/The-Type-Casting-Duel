@@ -8,9 +8,10 @@ const NORMAL_WORDS = [
 const HARRY_POTTER_WORDS = [
   "quidditch", "horcrux", "muggle", "wand", "gryffindor",
   "slytherin", "hufflepuff", "ravenclaw", "diagon", "privet",
-  "butterbeer", "patronus", "basilisk", "invisibility", "horntail", "ollivanders"
+  "butterbeer", "patronus", "basilisk", "invisibility", "horntail"
 ];
 
+// --- DOM ---
 const rope = document.getElementById("rope");
 const currentWordEl = document.getElementById("currentWord");
 const upcomingWordsEl = document.getElementById("upcomingWords");
@@ -21,27 +22,36 @@ const menu = document.getElementById("menu");
 const startBtn = document.getElementById("startBtn");
 const gameContainer = document.getElementById("gameContainer");
 
+// --- Game State ---
 let ropePosition = 325;
 let gameOver = false;
 let computerInterval;
 
 let currentDifficulty = "easy";
-const NUM_UPCOMING = 5;
+let currentWordSet = "normal";
 
-// SAME speed/pull for both difficulties
-const GAME_SETTINGS = { speed: 400, computerPull: 15, playerPull: 20 };
+const NUM_UPCOMING = 5;
+const PLAYER_PULL = 20;
+
+// Difficulty affects ONLY computer
+const DIFFICULTY_SETTINGS = {
+  easy: {
+    speed: 600,
+    computerPull: 8
+  },
+  hard: {
+    speed: 300,
+    computerPull: 18
+  }
+};
 
 let wordsQueue = [];
 
-/* --- Helper Functions --- */
-
-// Pick a word based on current difficulty
+/* --- Helpers --- */
 function randomWord() {
-  if (currentDifficulty === "easy") {
-    return NORMAL_WORDS[Math.floor(Math.random() * NORMAL_WORDS.length)];
-  } else {
-    return HARRY_POTTER_WORDS[Math.floor(Math.random() * HARRY_POTTER_WORDS.length)];
-  }
+  const bank =
+    currentWordSet === "normal" ? NORMAL_WORDS : HARRY_POTTER_WORDS;
+  return bank[Math.floor(Math.random() * bank.length)];
 }
 
 function initWords() {
@@ -56,7 +66,6 @@ function updateWords() {
   currentWordEl.textContent = wordsQueue[0];
   upcomingWordsEl.textContent = wordsQueue.slice(1).join(" ");
 
-  // Dynamically position upcoming words to avoid overlap
   const currentWordWidth = currentWordEl.offsetWidth;
   upcomingWordsEl.style.left = `calc(50% + ${currentWordWidth / 2 + 20}px)`;
 }
@@ -66,45 +75,41 @@ function moveRope(amount) {
   ropePosition = Math.max(0, Math.min(650, ropePosition));
   rope.style.left = ropePosition + "px";
 
-  if (ropePosition === 0) {
-    endGame("Computer wins!");
-  } else if (ropePosition === 650) {
-    endGame("You win!");
-  }
+  if (ropePosition === 0) endGame("Computer wins!");
+  if (ropePosition === 650) endGame("You win!");
 }
 
-/* --- Game Events --- */
-
-// Player typing
+/* --- Player Input --- */
 input.addEventListener("input", () => {
   if (gameOver) return;
 
   if (input.value.trim() === wordsQueue[0]) {
-    moveRope(GAME_SETTINGS.playerPull);
+    moveRope(PLAYER_PULL);
 
     wordsQueue.shift();
     wordsQueue.push(randomWord());
     updateWords();
-
     input.value = "";
   }
 });
 
-// Computer pull
+/* --- Computer --- */
 function startComputer() {
   clearInterval(computerInterval);
+
+  const settings = DIFFICULTY_SETTINGS[currentDifficulty];
+
   computerInterval = setInterval(() => {
-    if (!gameOver) moveRope(-GAME_SETTINGS.computerPull);
-  }, GAME_SETTINGS.speed);
+    if (!gameOver) moveRope(-settings.computerPull);
+  }, settings.speed);
 }
 
-// End game
+/* --- Game Flow --- */
 function endGame(text) {
   gameOver = true;
   result.textContent = text;
   clearInterval(computerInterval);
 
-  // Show menu again after short delay
   setTimeout(() => {
     menu.style.display = "block";
     gameContainer.style.display = "none";
@@ -112,21 +117,20 @@ function endGame(text) {
   }, 1000);
 }
 
-// Start Game button
 startBtn.addEventListener("click", () => {
-  const selected = document.querySelector('input[name="difficulty"]:checked');
-  currentDifficulty = selected.value;
+  currentDifficulty =
+    document.querySelector('input[name="difficulty"]:checked').value;
+
+  currentWordSet =
+    document.querySelector('input[name="wordset"]:checked').value;
 
   menu.style.display = "none";
   gameContainer.style.display = "flex";
 
   resetGame();
-
-  // Focus the input box automatically
   input.focus();
 });
 
-/* --- Reset Game --- */
 function resetGame() {
   gameOver = false;
   ropePosition = 325;
