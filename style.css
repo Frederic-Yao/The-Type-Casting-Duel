@@ -1,7 +1,15 @@
+@font-face {
+    font-family: "HarryP";
+    src: url("harry_p/HARRYP__.ttf") format("truetype");
+}
+* {
+    font-family: "HarryP", Arial, sans-serif;
+}
+
 body {
   margin: 0;
   height: 100vh;
-  font-family: Arial, sans-serif;
+  font-family: "HarryP", sans-serif;
   background: #f9f9f9;
   display: flex;
   flex-direction: column;
@@ -16,7 +24,7 @@ h1 {
 /* Menu */
 #menu {
   text-align: center;
-  font-size: 20px;
+  font-size: 30px;
 }
 
 #menu label {
@@ -25,7 +33,7 @@ h1 {
 
 #menu button {
   margin-top: 15px;
-  font-size: 18px;
+  font-size: px23;
   padding: 8px 16px;
   cursor: pointer;
 }
