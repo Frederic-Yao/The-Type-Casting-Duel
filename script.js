@@ -73,10 +73,34 @@ function updateWords() {
 function moveRope(amount) {
   ropePosition += amount;
   ropePosition = Math.max(0, Math.min(650, ropePosition));
-  rope.style.left = ropePosition + "px";
+
+  // Call our new visual updater
+  updateVisuals();
 
   if (ropePosition === 0) endGame("Computer wins!");
   if (ropePosition === 650) endGame("You win!");
+}
+
+function updateVisuals() {
+  // 1. Move the Clash Point (Explosion)
+  clashPoint.style.left = ropePosition + "px";
+
+  // 2. Calculate Beam Widths
+  // "80" is the offset we defined in CSS for the wand tip (left: 80px)
+  const wandOffset = 80; 
+  
+  // Left Beam connects Wand to Clash Point
+  // Math: Current Position - Wand Offset
+  let leftWidth = ropePosition - wandOffset;
+  if (leftWidth < 0) leftWidth = 0;
+  beamLeft.style.width = leftWidth + "px";
+
+  // Right Beam connects Right Wand to Clash Point
+  // Math: Total Width (700) - Current Position - Wand Offset
+  // Note: 700 is the width of #gameContainer in your CSS
+  let rightWidth = (700 - ropePosition) - wandOffset;
+  if (rightWidth < 0) rightWidth = 0;
+  beamRight.style.width = rightWidth + "px";
 }
 
 /* --- Player Input --- */
@@ -134,7 +158,10 @@ startBtn.addEventListener("click", () => {
 function resetGame() {
   gameOver = false;
   ropePosition = 325;
-  rope.style.left = ropePosition + "px";
+  
+  // Update the new visuals instead of rope.style.left
+  updateVisuals(); 
+  
   input.value = "";
   initWords();
   startComputer();
