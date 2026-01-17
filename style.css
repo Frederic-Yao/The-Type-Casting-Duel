@@ -2,8 +2,13 @@
     font-family: "HarryP";
     src: url("harry_p/HARRYP__.ttf") format("truetype");
 }
-* {
+
+body, h1, h2, h3, p, label, button {
     font-family: "HarryP", Arial, sans-serif;
+}
+
+#currentWord, #upcomingWords, #typingInput {
+    font-family: Arial, sans-serif; /* fallback / readable font */
 }
 
 body {
