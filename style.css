@@ -1,3 +1,4 @@
+/* --- General --- */
 body {
   margin: 0;
   height: 100vh;
@@ -13,7 +14,7 @@ h1 {
   margin-bottom: 20px;
 }
 
-/* Menu */
+/* --- Menu --- */
 #menu {
   text-align: center;
   font-size: 20px;
@@ -30,15 +31,9 @@ h1 {
   cursor: pointer;
 }
 
-/* Game container */
-#gameContainer {
-  width: 700px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-/* Rope */
+
+/* --- Rope --- */
 #ropeContainer {
   width: 100%;
   height: 50px;
@@ -60,41 +55,77 @@ h1 {
   transition: left 0.05s linear;
 }
 
-/* Words */
+/* --- Game Container --- */
+#gameContainer {
+  width: 95%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center everything horizontally */
+}
+
+/* --- Words Row --- */
 #wordsRow {
-  position: relative;
   width: 100%;
-  height: 60px;
   margin-bottom: 20px;
-  font-size: 42px;
+  font-family: monospace;
+  text-align: center; /* center the lines horizontally */
 }
 
-#currentWord {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 48px;
-  font-weight: bold;
-  color: black;
-}
-
-#upcomingWords {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  color: gray;
+/* --- Lines --- */
+#currentLine, #nextLine {
   font-size: 28px;
-  white-space: nowrap;
+  font-weight: bold;
+  white-space: nowrap;    /* prevent wrapping */
+  overflow-x: auto;       /* allow horizontal scroll if needed */
+  margin: 5px 0;
+  display: inline-block;  /* important for centering */
+  text-align: center;
+  line-height: 1.4;
+  max-width: 100%;        /* don't exceed container width */
 }
 
-/* Input */
+/* --- Input --- */
 #typingInput {
   width: 350px;
   font-size: 20px;
   padding: 8px;
-  text-align: center;
+  text-align: center;     /* center text inside input */
 }
 
+
+/* --- Letter Styles --- */
+.correct {
+  color: green;
+}
+
+.incorrect {
+  color: red;
+}
+
+.remaining {
+  color: black;
+}
+
+/* --- Cursor --- */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 28px;
+  background: black;
+  margin-left: 2px;
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+
+
+/* --- Result Text --- */
 #result {
   font-size: 28px;
   font-weight: bold;

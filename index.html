@@ -10,7 +10,7 @@
 
   <h1>Typing Tug of War</h1>
 
-  <!-- START MENU -->
+  <!-- MENU -->
   <div id="menu">
     <p><strong>Select Difficulty:</strong></p>
     <label>
@@ -38,18 +38,24 @@
     <button id="startBtn">Start Game</button>
   </div>
 
-  <!-- GAME CONTAINER -->
+  <!-- GAME -->
   <div id="gameContainer" style="display:none;">
     <div id="ropeContainer">
       <div id="rope"></div>
     </div>
 
     <div id="wordsRow">
-      <span id="currentWord"></span>
-      <span id="upcomingWords"></span>
+      <!-- Lines will be added dynamically -->
     </div>
 
-    <input type="text" id="typingInput" placeholder="Type here" autocomplete="off" autofocus>
+    <input
+      type="text"
+      id="typingInput"
+      placeholder="Type here"
+      autocomplete="off"
+      autofocus
+    />
+
     <p id="result"></p>
   </div>
 
