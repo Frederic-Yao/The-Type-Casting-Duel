@@ -8,7 +8,7 @@ const NORMAL_WORDS = [
 const HARRY_POTTER_WORDS = [
   "quidditch", "horcrux", "muggle", "wand", "gryffindor",
   "slytherin", "hufflepuff", "ravenclaw", "diagon", "privet",
-  "butterbeer", "patronus", "basilisk", "invisibility", "horntail"
+  "butterbeer", "patronus", "basilisk", "invisibility", "horntail", "ollivanders"
 ];
 
 const rope = document.getElementById("rope");
