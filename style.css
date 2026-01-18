@@ -23,7 +23,23 @@ body {
 }
 
 h1 {
-  margin-bottom: 150px;
+  margin: 0; /* removes default top/bottom margins */
+  margin-bottom: 60px; /* keeps space below */
+  text-align: center; /* centers text horizontally */
+  font-size: 80px; /* makes it big, adjust as needed */
+  padding-top: 10px;
+}
+
+p.difficulty {
+  text-align: center;
+  font-size: 50px;
+  margin-top: 0px;
+  margin-bottom: 100px;
+  font-weight: normal;
+}
+
+p.difficulty strong {
+  font-weight: bold;
 }
 
 /* --- Menu --- */
