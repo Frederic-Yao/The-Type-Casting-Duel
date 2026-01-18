@@ -37,11 +37,13 @@ h1 {
 }
 
 #menu button {
-  margin-top: 15px;
-  font-size: px23;
-  padding: 8px 16px;
+  margin-top: 20px;
+  font-size: 28px;        /* bigger text */
+  padding: 12px 24px;     /* bigger clickable area */
   cursor: pointer;
+  border-radius: 8px;     /* optional: rounded corners */
 }
+
 
 
 /* --- BATTLEFIELD (Replaces Rope) --- */
@@ -248,4 +250,8 @@ h1 {
 @keyframes pulse {
   from { transform: translateX(-50%) scale(1); }
   to { transform: translateX(-50%) scale(1.2); }
+}
+
+.hidden-during-countdown {
+  display: none !important;
 }
