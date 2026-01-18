@@ -92,11 +92,14 @@ h1 {
 .wordset-option input[type="radio"] {
   display: none;
 }
-
+.wordset-option {
+  position: relative;
+  left: 30px; /* fine-tune */
+}
 .wordset-option span {
   display: inline-block;
   margin: 10px 20px;
-  font-size: 35px;
+  font-size: 30px;
   color: #eee;
   cursor: pointer;
   text-shadow: 0 0 10px rgba(0,0,0,0.8);
@@ -411,8 +414,8 @@ button:hover::after {
 
   position: absolute;
   bottom: 135%;
-  left: 0%;
-  margin-left: 20px;
+  left: -35%;
+  margin-left: 0px;
   transform: translateX(-50%);
   z-index: 1001;
   opacity: 0;
