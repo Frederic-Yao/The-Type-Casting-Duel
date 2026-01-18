@@ -54,7 +54,6 @@
     </label>
 
     <br><br>
-    <!-- Start Button -->
     <button id="start-btn">Start Game</button>
   </div>
 
@@ -64,42 +63,42 @@
     <!-- Countdown -->
     <div id="countdown"></div>
 
-    <!-- Battlefield Animations -->
+
     <div id="battlefield">
-      <img id="char-left" src="./images/player.gif" alt="Player">
+      <img id="charLeft" src="./images/player.gif" alt="Player">
       
-      <img id="char-right" src="./images/computer.gif" alt="Enemy">
+      <img id="charRight" src="./images/computer.gif" alt="Enemy">
       
-      <div id="beam-left"></div>
-      <div id="beam-right"></div>
-      <img id="clash-point" src="./images/clash.gif" alt="Clash Animation">
+      <div id="beamLeft"></div>
+      <div id="beamRight"></div>
+      <img id="clashPoint" src="./images/clash.gif" alt="Clash Animation">
       
-      <img id="explosion-left" class="explosion hidden" src="./images/explosion.gif" />
-      <img id="explosion-right" class="explosion hidden" src="./images/explosion.gif" />
+      <img id="explosionLeft" class="explosion hidden" src="./images/explosion.gif" />
+      <img id="explosionRight" class="explosion hidden" src="./images/explosion.gif" />
 
-      <img id="win-left" src="./images/win_player.gif" class="hidden win-anim">
-      <img id="win-right" src="./images/win_computer.gif" class="hidden win-anim">
+      <img id="winLeft" src="./images/win_player.gif" class="hidden winAnim">
+      <img id="winRight" src="./images/win_computer.gif" class="hidden winAnim">
+       
+      <img id="charLeftNoSpell" src="./images/player_no_spell.gif" alt="Player Before Start">
+      <img id="charRightNoSpell" src="./images/computer_no_spell.gif" alt="Enemy Before Start">
     </div>
 
-    <div id="words-row">
-    <!-- Lines will be added dynamically -->
+    <div id="wordsRow">
+      <!-- Lines will be added dynamically -->
     </div>
 
-    <!-- Typing Input -->
     <input
       type="text"
-      id="typing-input"
+      id="typingInput"
       placeholder="Type here"
       autocomplete="off"
       autofocus
     />
-    <!-- Result Display -->
-    <p id="result"></p>
 
-    <!-- End Buttons -->
-    <div id="end-buttons" style="display:none">
-      <button id="play-again-btn">Play Again</button> 
-      <button id="main-menu-btn">Main Menu</button>
+    <p id="result"></p>
+    <div id="endButtons" style="display:none">
+      <button id="playAgainBtn">Play Again</button> 
+      <button id="mainMenuBtn">Main Menu</button>
     </div>
 
 

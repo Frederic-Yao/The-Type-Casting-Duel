@@ -1,29 +1,32 @@
 window.addEventListener("DOMContentLoaded", () => {
   // --- DOM elements ---
-  const input = document.getElementById("typing-input");
+  const input = document.getElementById("typingInput");
   const result = document.getElementById("result");
   const menu = document.getElementById("menu");
   const startBtn = document.getElementById("start-btn");
   const gameContainer = document.getElementById("game-container");
-  const wordsRow = document.getElementById("words-row");
+  const wordsRow = document.getElementById("wordsRow");
 
-  const beamLeft = document.getElementById("beam-left");
-  const beamRight = document.getElementById("beam-right");
-  const clashPoint = document.getElementById("clash-point");
+  const beamLeft = document.getElementById("beamLeft");
+  const beamRight = document.getElementById("beamRight");
+  const clashPoint = document.getElementById("clashPoint");
 
   const countdownEl = document.getElementById("countdown");
-  const endButtons = document.getElementById("end-buttons");
-  const mainMenuBtn = document.getElementById("main-menu-btn");
-  const playAgainBtn = document.getElementById("play-again-btn");
+  const endButtons = document.getElementById("endButtons");
+  const mainMenuBtn = document.getElementById("mainMenuBtn");
+  const playAgainBtn = document.getElementById("playAgainBtn");
 
-  const explosionLeft = document.getElementById("explosion-left");
-  const explosionRight = document.getElementById("explosion-right");
+  const explosionLeft = document.getElementById("explosionLeft");
+  const explosionRight = document.getElementById("explosionRight");
 
-  const charLeft = document.getElementById("char-left");
-  const charRight = document.getElementById("char-right");
+  const charLeft = document.getElementById("charLeft");
+  const charRight = document.getElementById("charRight");
 
-  const winLeft = document.getElementById("win-left");
-  const winRight = document.getElementById("win-right");
+  const winLeft = document.getElementById("winLeft");
+  const winRight = document.getElementById("winRight");
+
+  const charLeftNoSpell = document.getElementById("charLeftNoSpell");
+  const charRightNoSpell = document.getElementById("charRightNoSpell");
 
   // --- Lines for words ---
   const currentLineEl = document.createElement("div");
@@ -394,17 +397,33 @@ const HARRY_POTTER_WORDS = [
   }
 
   playAgainBtn.onclick = () => {
-    endButtons.style.display = "none"; // hide buttons
-    wordsRow.style.display = "none";   // hide words during countdown
-    input.style.display = "none";      // hide typing during countdown
+    // 1. Hide the result UI
+    endButtons.style.display = "none";
+    result.textContent = "";
+
+    // 2. Hide Battle/Win sprites so they don't overlap
+    charLeft.classList.add("hidden");
+    charRight.classList.add("hidden");
+    winLeft.classList.add("hidden");
+    winRight.classList.add("hidden");
+
+    // 3. Show the Intro (NoSpell) sprites
+    charLeftNoSpell.classList.remove("hidden");
+    charRightNoSpell.classList.remove("hidden");
+
+    // 4. Hide game UI for the countdown
+    wordsRow.style.display = "none";
+    input.style.display = "none";
     beamLeft.classList.add("hidden-during-countdown");
     beamRight.classList.add("hidden-during-countdown");
     clashPoint.classList.add("hidden-during-countdown");
 
-    result.textContent = ""; // clear previous result
-
+    // 5. Start the timer
     startCountdown(() => {
-      // show everything back after countdown
+      // Switch back to battle state
+      charLeftNoSpell.classList.add("hidden");
+      charRightNoSpell.classList.add("hidden");
+      
       wordsRow.style.display = "block";
       input.style.display = "block";
       beamLeft.classList.remove("hidden-during-countdown");
@@ -447,7 +466,14 @@ const HARRY_POTTER_WORDS = [
     menu.style.display = "none";
     gameContainer.style.display = "flex";
 
-    // Hide typing & battlefield for countdown
+    // --- START SWAP ---
+    // Show the Intro (NoSpell) sprites
+    charLeftNoSpell.classList.remove("hidden");
+    charRightNoSpell.classList.remove("hidden");
+
+    // Keep Battle sprites, Beams, and Input hidden during countdown
+    charLeft.classList.add("hidden");
+    charRight.classList.add("hidden");
     wordsRow.style.display = "none";
     input.style.display = "none";
     beamLeft.classList.add("hidden-during-countdown");
@@ -455,6 +481,14 @@ const HARRY_POTTER_WORDS = [
     clashPoint.classList.add("hidden-during-countdown");
 
     startCountdown(() => {
+      // --- END SWAP (When countdown hits 0) ---
+      // Hide the Intro sprites
+      charLeftNoSpell.classList.add("hidden");
+      charRightNoSpell.classList.add("hidden");
+
+      // Show the Battle sprites and the game UI
+      charLeft.classList.remove("hidden");
+      charRight.classList.remove("hidden");
       wordsRow.style.display = "block";
       input.style.display = "block";
       beamLeft.classList.remove("hidden-during-countdown");
@@ -471,24 +505,27 @@ const HARRY_POTTER_WORDS = [
     gameOver = false;
     currentTyped = "";
 
-    // 1. Show the characters again
+    // 1. Ensure Intro (NoSpell) characters are hidden now that game started
+    charLeftNoSpell.classList.add("hidden");
+    charRightNoSpell.classList.add("hidden");
+
+    // 2. Show the Battle characters
     charLeft.classList.remove("hidden");
     charRight.classList.remove("hidden");
 
-    // 2. Hide all end-game animations
+    // 3. Hide all end-game animations
     explosionLeft.classList.add("hidden");
     explosionRight.classList.add("hidden");
     winLeft.classList.add("hidden");
     winRight.classList.add("hidden");
 
-    // 3. Reset positions and typing
+    // 4. Reset positions and typing
     ropePosition = 325;
     updateVisuals();
     input.value = "";
     initLines();
     startComputer();
   }
-
 
   // --- Initialize ---
   initLines();
