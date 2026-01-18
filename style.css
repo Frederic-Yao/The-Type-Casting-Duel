@@ -365,12 +365,15 @@ button:hover::after {
   font-size: 100px;
   font-weight: bold;
   margin-top: 20px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 
-  white-space: nowrap;      /* prevents line breaks */
-  text-align: center;       /* centers text */
-  overflow: hidden;         /* optional, prevents overflowing container */
+  white-space: nowrap;      /* no wrapping */
+  text-align: center;       /* center text */
+  width: 100%;              /* take full width of container */
+  box-sizing: border-box;   /* include padding/borders in width */
+  overflow: visible;        /* show all characters */
 }
+
 
 
 .tooltip {
@@ -408,11 +411,64 @@ button:hover::after {
   display: none !important;
 }
 
+#endButtons {
+  display: flex;
+  justify-content: center;   /* center horizontally */
+  align-items: center;       /* center vertically */
+  margin-top: 30px;
+  flex-wrap: nowrap;         /* NEVER wrap */
+  width: 100%;               /* take full width of container */
+}
+
 #endButtons button {
-  font-size: 36px;      /* bigger text */
-  padding: 20px 40px;   /* bigger clickable area */
+  white-space: nowrap;       /* keep text on one line */
+  font-size: 36px;
+  padding: 20px 40px;
   margin: 0 20px;
   cursor: pointer;
   border-radius: 8px;
 }
 
+
+/* --- Fade & slide in animation --- */
+@keyframes slideFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(50px); /* start slightly below */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply animation to menu elements */
+#menu p.difficulty,
+#menu p.wordset,
+#menu .option span,
+#menu .wordset-option span,
+#menu button {
+  opacity: 0;                     /* start hidden */
+  animation: slideFadeIn 1s forwards;
+}
+
+/* Add delays for staggered effect */
+#menu p.difficulty {
+  animation-delay: 0.2s;
+}
+
+#menu p.wordset {
+  animation-delay: 0.4s;
+}
+
+#menu .option span {
+  animation-delay: 0.6s;
+}
+
+#menu .wordset-option span {
+  animation-delay: 0.8s;
+}
+
+#menu button {
+  animation-delay: 1s;
+}
