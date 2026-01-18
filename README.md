@@ -1,4 +1,4 @@
-# 🪄 Type Casting Duel
+# Type Casting Duel
 
 **Type Casting Duel** is a browser-based typing game that transforms 
 a standard typing challenge into a magical duel between a player and 
@@ -12,7 +12,7 @@ and game-like while remaining readable and easy to extend.
 
 ---
 
-## 📚 1. Overview
+## 1. Overview
 
 At its core, Type Casting Duel is about turning typing into an 
 active experience. The player and the computer both apply constant pressure 
@@ -25,7 +25,7 @@ guessing how well they are doing — the battlefield itself shows it.
 
 ---
 
-## 🎮 2. Core Gameplay Loop
+## 2. Core Gameplay Loop
 
 1. The player selects a **difficulty level** and **word set**
 2. A short countdown prepares both sides for battle
@@ -39,7 +39,7 @@ Each step feeds cleanly into the next, creating a loop that feels continuous rat
 
 ---
 
-## ⌨️ 3. Typing & Input Feedback
+## 3. Typing & Input Feedback
 
 Typing input is processed character by character. As the player 
 types, letters are visually marked as correct or incorrect, and a 
@@ -51,7 +51,7 @@ not push the spell forward, while the computer continues to apply pressure in re
 
 ---
 
-## 🧠 4. Difficulty Design
+## 4. Difficulty Design
 
 Difficulty in Type Casting Duel affects more than just speed. Each
 difficulty level modifies multiple aspects of the computer’s 
@@ -68,7 +68,7 @@ while easy mode gives players room to learn the mechanics.
 
 ---
 
-## 📖 5. Word Sets
+## 5. Word Sets
 
 Different word sets change the rhythm and difficulty of the game.
 
@@ -86,7 +86,7 @@ All word sets are stored as JavaScript arrays, making them easy to edit or expan
 
 ---
 
-## 🎨 6. Visual & Interface Design
+## 6. Visual & Interface Design
 
 The visual style draws inspiration from fantasy games and pixel-art 
 aesthetics. Characters have distinct idle, casting, and victory states, 
@@ -98,7 +98,7 @@ keeps the player’s attention focused on the typing task.
 
 ---
 
-## 🏗️ 7. Technical Structure
+## 7. Technical Structure
 
 The project follows a clear separation of responsibilities:
 
@@ -112,7 +112,7 @@ This makes the logic easier to reason about and modify.
 
 ---
 
-## 📁 8. File Structure
+## 8. File Structure
 
 .
 ├── index.html # Main HTML entry point
@@ -136,7 +136,7 @@ This makes the logic easier to reason about and modify.
 
 ---
 
-## ▶️ 9. Running the Game
+## 9. Running the Game
 
 No setup or build process is required. Simply open `index.html` in a modern desktop browser. Chrome is recommended to ensure smooth video playback and consistent animation timing.
 
@@ -144,7 +144,7 @@ Because the game relies on keyboard input, it is best experienced on a desktop o
 
 ---
 
-## 🚧 10. Limitations & Future Improvements
+## 10. Limitations & Future Improvements
 
 Current limitations include:
 - Single-player only
@@ -161,13 +161,13 @@ Potential future improvements:
 
 ---
 
-## 👤 11. Credits
+## 11. Credits
 
-Design and development by **William Li**.  
+Design and development by **Luca Geuzaine, William Li, Jeremy Verville-Prince, Frederic Yao**.  
 Inspired by classic typing games and magical duel mechanics.
 
 ---
 
-## 📜 12. License
+## 12. License
 
 This project is intended for educational and personal use. You are free to study, modify, and build upon the code.
