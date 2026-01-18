@@ -99,7 +99,7 @@ h1 {
 .wordset-option span {
   display: inline-block;
   margin: 10px 20px;
-  font-size: 30px;
+  font-size: 40px;
   color: #eee;
   cursor: pointer;
   text-shadow: 0 0 10px rgba(0,0,0,0.8);
@@ -461,7 +461,7 @@ button:hover::after {
 
   position: absolute;
   bottom: 135%;
-  left: -35%;
+  left: -13%;
   margin-left: 0px;
   transform: translateX(-50%);
   z-index: 1001;
