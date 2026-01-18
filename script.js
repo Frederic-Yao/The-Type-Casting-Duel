@@ -314,7 +314,7 @@ const HARRY_POTTER_WORDS = [
     });
   }
 
-
+// -------------------------Battlefield visuals-------------------------
   
   // Helper to Trigger Explosion
   function triggerExplosion(side) {
@@ -344,7 +344,9 @@ const HARRY_POTTER_WORDS = [
   // --- Rope & Beams ---
   function moveRope(amount) {
     ropePosition += amount;
+    // stays within bounds
     ropePosition = Math.max(0, Math.min(40.625, ropePosition));
+    // redraw beams
     updateVisuals();
 
     if (ropePosition <= 8.125) endGame("Computer wins!", "player");
@@ -353,12 +355,14 @@ const HARRY_POTTER_WORDS = [
   }
 
   function updateVisuals() {
+    // + "rem" to convert to rem units for CSS
     clashPoint.style.left = ropePosition + "rem";
 
     const leftWandOffset = 6.875;
     const rightWandOffset = 6.975;
     const containerWidth = 43.75;
 
+    // calculate beam widths depnding on clash position
     let leftWidth = ropePosition - leftWandOffset;
     beamLeft.style.width = Math.max(0, leftWidth) + "rem";
 
@@ -373,13 +377,14 @@ const HARRY_POTTER_WORDS = [
       const typedWord = currentTyped;
       const nextWord = lines[0][typedWords.length];
 
+      // Check if typed word is correct
       if (typedWord === nextWord) {
         typedWords.push(nextWord);
         totalCharacters += nextWord.length + 1;
         moveRope(PLAYER_PULL); // local movement
-        // socket.emit("playerMove", "right"); // multiplayer
       }
 
+      // Reset input box for next word or rest the same word if incorrect
       currentTyped = "";
       input.value = "";
       updateWords();
@@ -392,37 +397,38 @@ const HARRY_POTTER_WORDS = [
   });
 
 
-
-
-
   // --- Computer AI ---
   function startComputer() {
+    // cleare existing timer if any
     clearInterval(computerInterval);
     const settings = DIFFICULTY_SETTINGS[currentDifficulty];
+    // periodic pull by computer
     computerInterval = setInterval(() => {
       if (!gameOver) moveRope(-settings.computerPull);
     }, settings.speed);
   }
 
   // --- Countdown ---
-  // --- Countdown ---
   function startCountdown(callback) {
+    // display initial number of countdown
     countdownEl.style.display = "block";
     let count = 3;
     countdownEl.textContent = count;
 
+    // run the code evey 1000 seconds
     const interval = setInterval(() => {
+      // decrease count
       count--;
       if (count > 0) {
         countdownEl.textContent = count;
       } else {
-        clearInterval(interval);
-        countdownEl.style.display = "none";
+        clearInterval(interval); // stop countdown
+        countdownEl.style.display = "none"; //hide coutndown
         
-        startTime = Date.now(); 
+        startTime = Date.now();  // start time for WPM calculation
         totalCharacters = 0; // Reset character count for the new round
         
-        if (callback) callback();
+        if (callback) callback(); // function to start the game
       }
     }, 1000);
   }
@@ -457,6 +463,7 @@ const HARRY_POTTER_WORDS = [
     // Change textContent to innerHTML so we can use <br> for a new line
     result.innerHTML = `${message}<br><span style="font-size: 40px; opacity: 0.8;">Speed: ${wpm} WPM</span>`;
 
+    // trigger explosion
     if (loser === "player") {
       triggerExplosion("left");
       charRight.classList.add("hidden"); 
@@ -467,7 +474,7 @@ const HARRY_POTTER_WORDS = [
       triggerWin("left");         
     }
 
-    // --- 3. UI CLEANUP ---
+    // --- 3. UI CLEANUP ---, preparing for next game
     wordsRow.style.display = "none";
     input.style.display = "none";
     
@@ -486,7 +493,7 @@ const HARRY_POTTER_WORDS = [
     endButtons.style.display = "none";
     result.textContent = "";
 
-    // 2. Hide Battle/Win sprites so they don't overlap
+    // 2. Hide Battle/Win and sprites so they don't overlap
     charLeft.classList.add("hidden");
     charRight.classList.add("hidden");
     winLeft.classList.add("hidden");
@@ -566,7 +573,7 @@ const HARRY_POTTER_WORDS = [
     clashPoint.classList.add("hidden-during-countdown");
 
     startCountdown(() => {
-      // --- END SWAP (When countdown hits 0) ---
+      // (When countdown hits 0) ---
       // Hide the Intro sprites
       charLeftNoSpell.classList.add("hidden");
       charRightNoSpell.classList.add("hidden");
@@ -581,6 +588,7 @@ const HARRY_POTTER_WORDS = [
       clashPoint.classList.remove("hidden-during-countdown");
 
       resetGame();
+      // Focus input box, so you are already ready to type
       input.focus();
     });
   });
@@ -617,6 +625,7 @@ const HARRY_POTTER_WORDS = [
 
 });
 
+// --- Auto-scaling function, so that the game scales properly depending on screen size ---
 function autoScale() {
   const targetWidth = 1000;
   const targetHeight = 800; 
