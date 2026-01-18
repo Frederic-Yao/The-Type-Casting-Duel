@@ -12,19 +12,22 @@
 
   <!-- MENU -->
   <div id="menu">
-    <p class="difficulty"><strong>Select Difficulty:</strong></p>
-    <label class="option">
-      <input type="radio" name="difficulty" value="easy">
+    <p class="difficulty">Select Difficulty:</p>
+    <label class="option" for="easy">
+      <!-- name: name of the input -->
+      <!-- value: data submitted -->
+      <!-- id: link to label -->
+      <input type="radio" name="difficulty" value="easy" id="easy">
       <span>Easy</span>
     </label>
-    <label class="option">
-      <input type="radio" name="difficulty" value="hard">
+    <label class="option" for="hard">
+      <input type="radio" name="difficulty" value="hard" id="hard">
       <span>Hard</span>
     </label>
 
     <br><br>
 
-    <p class="wordset"><strong>Select Word Set:</strong></p>
+    <p class="wordset">Select Word Set:</p>
     <label class="wordset-option">
       <input type="radio" name="wordset" value="normal">
       <span class="tooltip no-animate">
