@@ -14,6 +14,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const countdownEl = document.getElementById("countdown");
   const endButtons = document.getElementById("endButtons");
   const mainMenuBtn = document.getElementById("mainMenuBtn");
+  const playAgainBtn = document.getElementById("playAgainBtn");
 
   const explosionLeft = document.getElementById("explosionLeft");
   const explosionRight = document.getElementById("explosionRight");
@@ -366,6 +367,30 @@ const HARRY_POTTER_WORDS = [
     endButtons.style.marginTop = "30px";
   }
 
+  playAgainBtn.onclick = () => {
+    endButtons.style.display = "none"; // hide buttons
+    wordsRow.style.display = "none";   // hide words during countdown
+    input.style.display = "none";      // hide typing during countdown
+    beamLeft.classList.add("hidden-during-countdown");
+    beamRight.classList.add("hidden-during-countdown");
+    clashPoint.classList.add("hidden-during-countdown");
+
+    result.textContent = ""; // clear previous result
+
+    startCountdown(() => {
+      // show everything back after countdown
+      wordsRow.style.display = "block";
+      input.style.display = "block";
+      beamLeft.classList.remove("hidden-during-countdown");
+      beamRight.classList.remove("hidden-during-countdown");
+      clashPoint.classList.remove("hidden-during-countdown");
+
+      resetGame();
+      input.focus();
+    });
+  };
+
+
 
   // --- Main Menu ---
   mainMenuBtn.onclick = () => {
@@ -382,6 +407,7 @@ const HARRY_POTTER_WORDS = [
     beamRight.classList.remove("hidden-during-countdown");
     clashPoint.classList.remove("hidden-during-countdown");
   };
+
 
 
   // --- Start button ---
@@ -434,23 +460,5 @@ const HARRY_POTTER_WORDS = [
 
   // --- Initialize ---
   initLines();
-  const socket = io();
-
-  // Join multiplayer game
-  socket.emit("joinGame");
-
-  // When player types a correct word
-  socket.emit("playerMove", 30); // positive moves right, negative moves left
-
-  // Listen for rope updates from server
-  socket.on("updateRope", (newRope) => {
-    ropePosition = newRope;
-    updateVisuals();
-  });
-
-  // Game over
-  socket.on("gameOver", (data) => {
-    alert(`${data.winner} wins!`);
-  });
 
 });
