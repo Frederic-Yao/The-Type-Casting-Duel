@@ -31,8 +31,8 @@ guessing how well they are doing — the battlefield itself shows it.
 2. A short countdown prepares both sides for battle
 3. Both characters begin casting spells
 4. The player types words and submits them using the **space bar**
-5. Correct words push the clash point toward the AI
-6. The AI applies constant opposing pressure
+5. Correct words push the clash point toward the computer
+6. The computer applies constant opposing pressure
 7. The duel ends when one side is overpowered
 
 Each step feeds cleanly into the next, creating a loop that feels continuous rather than segmented.
@@ -80,7 +80,7 @@ Different word sets change the rhythm and difficulty of the game.
 - **Spellbook of Words**
   - Fantasy and magic-themed terms
   - Longer and more complex words
-  - Naturally increases difficulty without changing AI behavior
+  - Naturally increases difficulty without changing computer behavior
 
 All word sets are stored as JavaScript arrays, making them easy to edit or expand.
 
@@ -104,7 +104,7 @@ The project follows a clear separation of responsibilities:
 
 - **HTML** defines the structure and layout
 - **CSS** handles animations, positioning, and visual effects
-- **JavaScript** controls game state, input handling, and AI logic
+- **JavaScript** controls game state, input handling, and computer logic
 
 The game uses a state-based approach, with clearly defined 
 phases such as menu, countdown, active play, and game over. 
@@ -117,7 +117,7 @@ This makes the logic easier to reason about and modify.
 .
 ├── index.html # Main HTML entry point
 ├── style.css # All styles and animations
-├── script.js # Game logic and AI behavior
+├── script.js # Game logic and computer behavior
 ├── images/
 │ ├── background3.mp4
 │ ├── battlefield.png
@@ -148,13 +148,13 @@ Because the game relies on keyboard input, it is best experienced on a desktop o
 
 Current limitations include:
 - Single-player only
-- Deterministic AI behavior
+- Deterministic computer behavior
 - Limited mobile support
 - No persistent stats or leaderboards
 
 Potential future improvements:
 - Multiplayer modes
-- Adaptive AI that responds to player WPM
+- Adaptive computer that responds to player WPM
 - Additional game modes
 - Sound effects and music controls
 - Mobile-friendly input handling
