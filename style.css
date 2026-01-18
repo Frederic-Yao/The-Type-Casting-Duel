@@ -295,10 +295,11 @@ p.difficulty strong {
 }
 
 #endButtons button {
-  font-size: 36px;      /* bigger text */
-  padding: 20px 40px;   /* bigger clickable area */
+  font-size: 36px;
+  padding: 20px 40px;
   margin: 0 20px;
   cursor: pointer;
   border-radius: 8px;
 }
+
 
