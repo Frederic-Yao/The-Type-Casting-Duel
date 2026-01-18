@@ -1,7 +1,7 @@
 /*Harry Potter Font*/
 @font-face {
     font-family: "HarryP";
-    src: url("harry_p/HARRYP__.ttf") format("truetype");
+    src: url("./HARRYP__.ttf") format("truetype");
 }
 
 /* Global Styles */
