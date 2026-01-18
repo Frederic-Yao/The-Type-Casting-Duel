@@ -85,7 +85,7 @@ h1 {
   position: absolute;
   height: 90px; 
   /* Use the red beam image */
-  background-image: url('red-beam.png');
+  background-image: url('./images/red-beam.png');
   background-repeat: repeat-x;
   background-position: center left;
   background-size: contain; 
@@ -104,7 +104,7 @@ h1 {
   position: absolute;
   height: 90px;
   /* Use the green beam image */
-  background-image: url('green-beam.png');
+  background-image: url('./images/green-beam.png');
   background-repeat: repeat-x;
   background-position: center right;
   background-size: contain;

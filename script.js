@@ -153,8 +153,9 @@ const HARRY_POTTER_WORDS = [
   }
 
   function getLineLength() {
-    return currentWordSet === "harry" ? 5 : 10;
+    return 5; // always 5 words per line, same as Harry Potter mode
   }
+
 
   function initLines() {
     lines = [];
