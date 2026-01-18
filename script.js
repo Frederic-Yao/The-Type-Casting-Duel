@@ -21,6 +21,9 @@ window.addEventListener("DOMContentLoaded", () => {
   const charLeft = document.getElementById("charLeft");
   const charRight = document.getElementById("charRight");
 
+  const winLeft = document.getElementById("winLeft");
+  const winRight = document.getElementById("winRight");
+
   // --- Lines for words ---
   const currentLineEl = document.createElement("div");
   currentLineEl.id = "currentLine";
@@ -342,6 +345,19 @@ const HARRY_POTTER_WORDS = [
     }, 1000);
   }
 
+  // Trigger Win Gif
+  function triggerWin(side) {
+    const winAnim = side === "left" ? winLeft : winRight;
+  
+    // 1. Unhide the element
+    winAnim.classList.remove("hidden");
+    winAnim.style.display = "block"; // Ensure it's not set to none by a parent
+
+    // 2. Force GIF restart with a timestamp to bypass cache
+    const currentSrc = winAnim.src.split('?')[0];
+    winAnim.src = currentSrc + "?t=" + new Date().getTime();
+  }
+
   // --- End game ---
   function endGame(message, loser) {
     gameOver = true;
@@ -350,9 +366,17 @@ const HARRY_POTTER_WORDS = [
     clearInterval(computerInterval);
 
     if (loser === "player") {
-      triggerExplosion("left");
-    } else if (loser === "computer") {
-      triggerExplosion("right");
+      triggerExplosion("left");   // Hide Player & show Explosion
+
+      // NEW: Hide the winner (Computer) so the GIF looks clean
+      charRight.classList.add("hidden"); 
+      triggerWin("right");        
+    } else {
+      triggerExplosion("right");  // Hide Computer & show Explosion
+ 
+      // NEW: Hide the winner (Player) so the GIF looks clean
+      charLeft.classList.add("hidden");
+      triggerWin("left");         
     }
 
     wordsRow.style.display = "none";
@@ -374,10 +398,13 @@ const HARRY_POTTER_WORDS = [
     menu.style.display = "block";
     result.textContent = "";
 
-    // restore characters
+    // Hide the winner GIFs specifically
+    winLeft.classList.add("hidden");
+    winRight.classList.add("hidden");
+
+    // Restore characters and battlefield elements
     charLeft.classList.remove("hidden");
     charRight.classList.remove("hidden");
-
     beamLeft.classList.remove("hidden-during-countdown");
     beamRight.classList.remove("hidden-during-countdown");
     clashPoint.classList.remove("hidden-during-countdown");
@@ -414,18 +441,21 @@ const HARRY_POTTER_WORDS = [
   // --- Reset game ---
   function resetGame() {
     gameOver = false;
-
     currentTyped = "";
 
+    // 1. Show the characters again
     charLeft.classList.remove("hidden");
     charRight.classList.remove("hidden");
 
+    // 2. Hide all end-game animations
     explosionLeft.classList.add("hidden");
     explosionRight.classList.add("hidden");
+    winLeft.classList.add("hidden");
+    winRight.classList.add("hidden");
 
+    // 3. Reset positions and typing
     ropePosition = 325;
     updateVisuals();
-
     input.value = "";
     initLines();
     startComputer();

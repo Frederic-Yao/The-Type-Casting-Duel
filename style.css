@@ -261,6 +261,28 @@ button:hover::after {
   display: none;
 }
 
+/* Win Animations Positioning */
+.winAnim {
+  position: absolute;
+  bottom: 10px;    /* Aligns with the characters' feet */
+  height: 100px;
+  z-index: 3;     /* Ensures it's above everything else */
+  pointer-events: none;
+  image-rendering: pixelated;
+}
+
+#winLeft {
+  left: 10px;      /* Directly over the player's spot */
+}
+
+#winRight {
+  right: 10px;     /* Directly over the enemy's spot */
+}
+
+/* Ensure the hidden class actually works */
+.hidden {
+  display: none !important;
+}
 
 /* Beams */
 /* --- BEAM SETTINGS --- */
