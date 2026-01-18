@@ -81,7 +81,7 @@ h1 {
 
 .option input[type="radio"]:checked + span {
   color: #FFD700;
-  transform: translateY(0) scale(1.12) !important;
+  transform: scale(1.12);
   text-shadow:
   0 0 7px rgba(0,0,0,0.8),
   0 0 6px #FFD700,
@@ -113,7 +113,7 @@ h1 {
 
 .wordset-option input[type="radio"]:checked + span {
   color: #FFD700;
-  transform: translateY(0) scale(1.12) !important;
+  transform: scale(1.12);
   text-shadow:
   0 0 7px rgba(0,0,0,0.8),
   0 0 6px #FFD700,
@@ -236,31 +236,6 @@ button:hover::after {
   height: 100px; /* Adjust to sprite size */
   z-index: 3;
 }
-
-/* Explosion */
-.explosion {
-  position: absolute;
-  bottom: 0;
-  width: 140px;
-  height: 140px;
-  image-rendering: pixelated;
-  z-index: 10;
-  pointer-events: none;
-}
-
-/* Position over characters */
-#explosionLeft {
-  left: 10px;   /* same as charLeft */
-}
-
-#explosionRight {
-  right: 10px;  /* same as charRight */
-}
-
-.hidden {
-  display: none;
-}
-
 
 /* Beams */
 /* --- BEAM SETTINGS --- */
