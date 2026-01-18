@@ -54,6 +54,7 @@
     </label>
 
     <br><br>
+    <!-- Start Button -->
     <button id="start-btn">Start Game</button>
   </div>
 
@@ -63,15 +64,15 @@
     <!-- Countdown -->
     <div id="countdown"></div>
 
-
+    <!-- Battlefield Animations -->
     <div id="battlefield">
-      <img id="charLeft" src="./images/player.gif" alt="Player">
+      <img id="char-left" src="./images/player.gif" alt="Player">
       
-      <img id="charRight" src="./images/computer.gif" alt="Enemy">
+      <img id="char-right" src="./images/computer.gif" alt="Enemy">
       
-      <div id="beamLeft"></div>
-      <div id="beamRight"></div>
-      <img id="clashPoint" src="./images/clash.gif" alt="Clash Animation">
+      <div id="beam-left"></div>
+      <div id="beam-right"></div>
+      <img id="clash-point" src="./images/clash.gif" alt="Clash Animation">
       
       <img id="explosionLeft" class="explosion hidden" src="./images/explosion.gif" />
       <img id="explosionRight" class="explosion hidden" src="./images/explosion.gif" />
@@ -83,22 +84,25 @@
       <img id="charRightNoSpell" src="./images/computer_no_spell.gif" alt="Enemy Before Start">
     </div>
 
-    <div id="wordsRow">
-      <!-- Lines will be added dynamically -->
+    <div id="words-row">
+    <!-- Lines will be added dynamically -->
     </div>
 
+    <!-- Typing Input -->
     <input
       type="text"
-      id="typingInput"
+      id="typing-input"
       placeholder="Type here"
       autocomplete="off"
       autofocus
     />
-
+    <!-- Result Display -->
     <p id="result"></p>
-    <div id="endButtons" style="display:none">
-      <button id="playAgainBtn">Play Again</button> 
-      <button id="mainMenuBtn">Main Menu</button>
+
+    <!-- End Buttons -->
+    <div id="end-buttons" style="display:none">
+      <button id="play-again-btn">Play Again</button> 
+      <button id="main-menu-btn">Main Menu</button>
     </div>
 
 

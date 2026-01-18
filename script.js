@@ -1,29 +1,29 @@
 window.addEventListener("DOMContentLoaded", () => {
   // --- DOM elements ---
-  const input = document.getElementById("typingInput");
+  const input = document.getElementById("typing-input");
   const result = document.getElementById("result");
   const menu = document.getElementById("menu");
   const startBtn = document.getElementById("start-btn");
   const gameContainer = document.getElementById("game-container");
-  const wordsRow = document.getElementById("wordsRow");
+  const wordsRow = document.getElementById("words-row");
 
-  const beamLeft = document.getElementById("beamLeft");
-  const beamRight = document.getElementById("beamRight");
-  const clashPoint = document.getElementById("clashPoint");
+  const beamLeft = document.getElementById("beam-left");
+  const beamRight = document.getElementById("beam-right");
+  const clashPoint = document.getElementById("clash-point");
 
   const countdownEl = document.getElementById("countdown");
-  const endButtons = document.getElementById("endButtons");
-  const mainMenuBtn = document.getElementById("mainMenuBtn");
-  const playAgainBtn = document.getElementById("playAgainBtn");
+  const endButtons = document.getElementById("end-buttons");
+  const mainMenuBtn = document.getElementById("main-menu-btn");
+  const playAgainBtn = document.getElementById("play-again-btn");
 
-  const explosionLeft = document.getElementById("explosionLeft");
-  const explosionRight = document.getElementById("explosionRight");
+  const explosionLeft = document.getElementById("explosion-left");
+  const explosionRight = document.getElementById("explosion-right");
 
-  const charLeft = document.getElementById("charLeft");
-  const charRight = document.getElementById("charRight");
+  const charLeft = document.getElementById("char-left");
+  const charRight = document.getElementById("char-right");
 
-  const winLeft = document.getElementById("winLeft");
-  const winRight = document.getElementById("winRight");
+  const winLeft = document.getElementById("win-left");
+  const winRight = document.getElementById("win-right");
 
   const charLeftNoSpell = document.getElementById("charLeftNoSpell");
   const charRightNoSpell = document.getElementById("charRightNoSpell");
