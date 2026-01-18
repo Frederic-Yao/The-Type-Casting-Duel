@@ -285,7 +285,7 @@ const HARRY_POTTER_WORDS = [
       container.appendChild(letter);
     }
 
-    // If cursor wasn't added, add it at the end
+    // If cursor wasn't added, add it at the end (edge case)
     if (!cursorAdded) {
       container.appendChild(createCursor());
     }
