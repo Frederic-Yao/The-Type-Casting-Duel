@@ -453,16 +453,30 @@ button:hover::after {
 
 /* --- Result Text --- */
 #result {
-  font-size: 100px;
+  font-size: 80px;           /* Slightly smaller to fit the screen better */
   font-weight: bold;
   margin-top: 20px;
-  margin-bottom: 0;
+  margin-bottom: 20px;
 
-  white-space: nowrap;      /* no wrapping */
-  text-align: center;       /* center text */
-  width: 100%;              /* take full width of container */
-  box-sizing: border-box;   /* include padding/borders in width */
-  overflow: visible;        /* show all characters */
+  /* CHANGE: Allow wrapping so WPM can go on the next line */
+  white-space: normal;      
+  
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: visible;
+  
+  /* ADD: Control the spacing between the two lines */
+  line-height: 1.1; 
+}
+
+/* ADD: This makes the WPM line look like a subtitle */
+#result span {
+  display: block;           /* Forces the span onto a new line */
+  font-size: 45px;          /* Makes the WPM smaller than the main message */
+  opacity: 0.9;             /* Makes it look slightly different */
+  color: #FFD700;           /* Gives the WPM a gold color to match your theme */
+  margin-top: 10px;
 }
 
 .tooltip {

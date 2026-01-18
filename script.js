@@ -48,6 +48,9 @@ window.addEventListener("DOMContentLoaded", () => {
   let currentDifficulty = "easy";
   let currentWordSet = "normal";
 
+  let startTime;
+  let totalCharacters = 0;
+
   const PLAYER_PULL = 30; // pixels per correct word
   const DIFFICULTY_SETTINGS = {
     easy:   { speed: 600, computerPull: 5 },
@@ -305,6 +308,7 @@ const HARRY_POTTER_WORDS = [
 
       if (typedWord === nextWord) {
         typedWords.push(nextWord);
+        totalCharacters += nextWord.length + 1;
         moveRope(PLAYER_PULL); // local movement
         // socket.emit("playerMove", "right"); // multiplayer
       }
@@ -334,6 +338,7 @@ const HARRY_POTTER_WORDS = [
   }
 
   // --- Countdown ---
+  // --- Countdown ---
   function startCountdown(callback) {
     countdownEl.style.display = "block";
     let count = 3;
@@ -346,6 +351,10 @@ const HARRY_POTTER_WORDS = [
       } else {
         clearInterval(interval);
         countdownEl.style.display = "none";
+        
+        startTime = Date.now(); 
+        totalCharacters = 0; // Reset character count for the new round
+        
         if (callback) callback();
       }
     }, 1000);
@@ -367,26 +376,35 @@ const HARRY_POTTER_WORDS = [
   // --- End game ---
   function endGame(message, loser) {
     gameOver = true;
-    result.textContent = message;
-
     clearInterval(computerInterval);
 
-    if (loser === "player") {
-      triggerExplosion("left");   // Hide Player & show Explosion
+    // --- 1. CALCULATE WPM ---
+    const endTime = Date.now();
+    // Convert the difference from milliseconds to minutes
+    const elapsedMinutes = (endTime - startTime) / 60000; 
+    
+    // Standard WPM formula: (Total Characters / 5) / Time
+    const wpm = elapsedMinutes > 0 ? Math.round((totalCharacters / 5) / elapsedMinutes) : 0;
 
-      // NEW: Hide the winner (Computer) so the GIF looks clean
+    // --- 2. DISPLAY RESULTS ---
+    // Change textContent to innerHTML so we can use <br> for a new line
+    result.innerHTML = `${message}<br><span style="font-size: 40px; opacity: 0.8;">Speed: ${wpm} WPM</span>`;
+
+    if (loser === "player") {
+      triggerExplosion("left");
       charRight.classList.add("hidden"); 
       triggerWin("right");        
     } else {
-      triggerExplosion("right");  // Hide Computer & show Explosion
- 
-      // NEW: Hide the winner (Player) so the GIF looks clean
+      triggerExplosion("right");
       charLeft.classList.add("hidden");
       triggerWin("left");         
     }
 
+    // --- 3. UI CLEANUP ---
     wordsRow.style.display = "none";
     input.style.display = "none";
+    
+    // Ensure beams and clash point disappear
     beamLeft.classList.add("hidden-during-countdown");
     beamRight.classList.add("hidden-during-countdown");
     clashPoint.classList.add("hidden-during-countdown");
