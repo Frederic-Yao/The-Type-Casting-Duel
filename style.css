@@ -11,11 +11,20 @@ body, h1, h2, h3, p, label, button {
     font-family: Arial, sans-serif; /* fallback / readable font */
 }
 
+body, h1, p {
+  color: #ccc; /* or keep your golden header color if needed */
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* soft white glow */
+}
+
 body {
   margin: 0;
   height: 100vh;
+  background-image: url("C:/Users/frede/OneDrive/Documents/schoolwork/McHacks13/background.jpg");
+  background-size: cover;        
+  background-position: center;   
+  background-repeat: no-repeat; 
+  background-attachment: fixed;  
   font-family: "HarryP", sans-serif;
-  background: #f9f9f9;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,7 +32,40 @@ body {
 }
 
 h1 {
-  margin-bottom: 150px;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 80px;               /* make it big like a title */
+  color: #E6C200;                /* bright gold */
+  font-family: 'HarryP', serif;  /* fancy serif font, similar to HP style */
+  text-align: center;
+
+  /* black outline + glowing gold inside */
+  text-shadow:
+     -2px -2px 0 #000,   /* top-left outline */
+      3px -2px 0 #000,   /* top-right outline */
+     -2px  2px 0 #000,   /* bottom-left outline */
+      2px  2px 0 #000,   /* bottom-right outline */
+      0 0 8px #FFD700,   /* subtle inner glow */
+      0 0 15px #FFD700;  /* stronger outer glow */
+
+  letter-spacing: 2px;            /* spreads letters a little for logo look */
+  margin: 0;
+  padding: 20px 0;
+  z-index: 1000;
+}
+
+p.difficulty {
+  text-align: center;
+  font-size: 50px;
+  margin-top: 0px;
+  margin-bottom: 100px;
+  font-weight: normal;
+}
+
+p.difficulty strong {
+  font-weight: bold;
 }
 
 /* --- Menu --- */
