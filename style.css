@@ -19,7 +19,7 @@ body, p, h2, h3, p, label, #currentWord, #upcomingWords {
 body {
   margin: 0;
   height: 100vh;
-  background-image: url("./background.jpg");
+  background-image: url("./images/background.jpg");
   background-size: cover;        
   background-position: center;   
   background-repeat: no-repeat; 
@@ -91,16 +91,32 @@ p.difficulty strong {
 
 /* --- BATTLEFIELD (Replaces Rope) --- */
 #battlefield {
-  width: 700px;  /* fixed width */
+  width: 700px;
   height: 150px;
   position: relative;
   margin-bottom: 30px;
-  background-color: #222;
+  
+  /* --- NEW BACKGROUND SETTINGS --- */
+  /* 1. Remove background-color: #222; */
+  
+  /* 2. Add your image */
+  background-image: url('./images/battlefield.png'); 
+  
+  /* 3. Scale Logic: 'cover' fills the box without squishing */
+  background-size: cover;
+  
+  /* 4. Positioning: 'bottom center' shows the ground/graves. 
+     Change to 'center' if you want to see more of the castle/sky. */
+  background-position: bottom center;
+  
+  /* 5. Keep Pixel Art Sharp */
+  image-rendering: pixelated; 
+  
+  /* Keep your border/radius */
   border-radius: 10px;
   overflow: hidden;
   border: 2px solid #444;
-
-  flex-shrink: 0; /* prevent shrinking in flex layouts */
+  flex-shrink: 0;
 }
 
 
@@ -295,10 +311,11 @@ p.difficulty strong {
 }
 
 #endButtons button {
-  font-size: 36px;      /* bigger text */
-  padding: 20px 40px;   /* bigger clickable area */
+  font-size: 36px;
+  padding: 20px 40px;
   margin: 0 20px;
   cursor: pointer;
   border-radius: 8px;
 }
+
 
