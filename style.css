@@ -290,11 +290,6 @@ button:hover::after {
 }
 
 
-/*So that we do not see the characters winning yet, it is a class associated to winning poses*/
-.hidden {
-  display: none;
-}
-
 /* Explosion, animation that happens when a spell touches a character, so when a game ends */
 .explosion {
   position: absolute;
@@ -327,15 +322,18 @@ button:hover::after {
   image-rendering: pixelated;
 }
 
+
+/*when the player wins*/
 #win-left {
   left: 10px;      /* Directly over the player's spot */
 }
 
+/*when the computer wins*/
 #win-right {
   right: 10px;     /* Directly over the enemy's spot */
 }
 
-/* Ensure the hidden class actually works */
+/* Ensure the hidden class actually works on the winning characters, since we do not want to see then win yet*/
 .hidden {
   display: none !important;
 }
