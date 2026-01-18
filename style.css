@@ -237,6 +237,31 @@ button:hover::after {
   z-index: 3;
 }
 
+/* Explosion */
+.explosion {
+  position: absolute;
+  bottom: 0;
+  width: 140px;
+  height: 140px;
+  image-rendering: pixelated;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Position over characters */
+#explosionLeft {
+  left: 10px;   /* same as charLeft */
+}
+
+#explosionRight {
+  right: 10px;  /* same as charRight */
+}
+
+.hidden {
+  display: none;
+}
+
+
 /* Beams */
 /* --- BEAM SETTINGS --- */
 

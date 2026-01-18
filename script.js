@@ -15,6 +15,12 @@ window.addEventListener("DOMContentLoaded", () => {
   const endButtons = document.getElementById("endButtons");
   const mainMenuBtn = document.getElementById("mainMenuBtn");
 
+  const explosionLeft = document.getElementById("explosionLeft");
+  const explosionRight = document.getElementById("explosionRight");
+
+  const charLeft = document.getElementById("charLeft");
+  const charRight = document.getElementById("charRight");
+
   // --- Lines for words ---
   const currentLineEl = document.createElement("div");
   currentLineEl.id = "currentLine";
@@ -29,6 +35,8 @@ window.addEventListener("DOMContentLoaded", () => {
   let computerInterval;
   let typedWords = [];
   let lines = [];
+
+  let currentTyped = "";
 
   let currentDifficulty = "easy";
   let currentWordSet = "normal";
@@ -170,7 +178,7 @@ const HARRY_POTTER_WORDS = [
   }
 
   function updateWords() {
-    const typed = input.value;
+    const typed = currentTyped;
 
     if (typedWords.length >= lines[0].length) {
       typedWords = [];
@@ -228,6 +236,31 @@ const HARRY_POTTER_WORDS = [
       nextLineEl.appendChild(span);
     });
   }
+  
+  // Helper to Trigger Explosion
+  function triggerExplosion(side) {
+    const explosion =
+      side === "left" ? explosionLeft : explosionRight;
+    const character =
+      side === "left" ? charLeft : charRight;
+
+    // Show explosion
+    explosion.classList.remove("hidden");
+
+    // Restart GIF
+    explosion.src = explosion.src;
+
+    // Hide character shortly after explosion starts
+    setTimeout(() => {
+      character.classList.add("hidden");
+    }, 150); // small delay feels better visually
+
+    // Hide explosion after animation finishes
+    setTimeout(() => {
+      explosion.classList.add("hidden");
+    }, 800); // match gif duration
+  }
+
 
   // --- Rope & Beams ---
   function moveRope(amount) {
@@ -235,8 +268,9 @@ const HARRY_POTTER_WORDS = [
     ropePosition = Math.max(0, Math.min(650, ropePosition));
     updateVisuals();
 
-    if (ropePosition <= 130) endGame("Computer wins!");
-    if (ropePosition >= 600 ) endGame("You win!");
+    if (ropePosition <= 130) endGame("Computer wins!", "player");
+    if (ropePosition >= 600) endGame("You win!", "computer");
+
   }
 
   function updateVisuals() {
@@ -255,19 +289,31 @@ const HARRY_POTTER_WORDS = [
 
   // --- Player typing ---
   input.addEventListener("input", () => {
-    if (gameOver) return;
-    updateWords();
+    // If space pressed → submit word
     if (input.value.endsWith(" ")) {
-      const typedWord = input.value.trim();
+      const typedWord = currentTyped;
       const nextWord = lines[0][typedWords.length];
+
       if (typedWord === nextWord) {
         typedWords.push(nextWord);
-        moveRope(PLAYER_PULL);
+        moveRope(PLAYER_PULL); // local movement
+        // socket.emit("playerMove", "right"); // multiplayer
       }
+
+      currentTyped = "";
       input.value = "";
       updateWords();
+      return;
     }
+
+    // Otherwise keep tracking typed letters
+    currentTyped = input.value;
+    updateWords();
   });
+
+
+
+
 
   // --- Computer AI ---
   function startComputer() {
@@ -297,24 +343,29 @@ const HARRY_POTTER_WORDS = [
   }
 
   // --- End game ---
-  function endGame(message) {
+  function endGame(message, loser) {
     gameOver = true;
     result.textContent = message;
 
     clearInterval(computerInterval);
 
-    // Hide typing and battlefield beams/clash
+    if (loser === "player") {
+      triggerExplosion("left");
+    } else if (loser === "computer") {
+      triggerExplosion("right");
+    }
+
     wordsRow.style.display = "none";
     input.style.display = "none";
     beamLeft.classList.add("hidden-during-countdown");
     beamRight.classList.add("hidden-during-countdown");
     clashPoint.classList.add("hidden-during-countdown");
 
-    // Show only Main Menu button
     endButtons.style.display = "flex";
     endButtons.style.justifyContent = "center";
     endButtons.style.marginTop = "30px";
   }
+
 
   // --- Main Menu ---
   mainMenuBtn.onclick = () => {
@@ -323,11 +374,15 @@ const HARRY_POTTER_WORDS = [
     menu.style.display = "block";
     result.textContent = "";
 
-    // Show beams/clash for next game
+    // restore characters
+    charLeft.classList.remove("hidden");
+    charRight.classList.remove("hidden");
+
     beamLeft.classList.remove("hidden-during-countdown");
     beamRight.classList.remove("hidden-during-countdown");
     clashPoint.classList.remove("hidden-during-countdown");
   };
+
 
   // --- Start button ---
   startBtn.addEventListener("click", () => {
@@ -359,13 +414,46 @@ const HARRY_POTTER_WORDS = [
   // --- Reset game ---
   function resetGame() {
     gameOver = false;
+
+    // RESTORE CHARACTERS FIRST
+    charLeft.classList.remove("hidden");
+    charRight.classList.remove("hidden");
+
+    // Hide explosions
+    explosionLeft.classList.add("hidden");
+    explosionRight.classList.add("hidden");
+
     ropePosition = 325;
     updateVisuals();
+
     input.value = "";
     initLines();
     startComputer();
   }
 
+
   // --- Initialize ---
   initLines();
+  const socket = io();
+
+
+  socket.on("init", (data) => {
+    ropePosition = data.ropePosition;
+    updateVisuals();
+    const players = Object.keys(data.players);
+    const myPlayer = players[0] === socket.id ? "left" : "right";
+  });
+
+  socket.on("updateRope", (data) => {
+    ropePosition = data.ropePosition;
+    updateVisuals();
+  });
+
+  socket.on("gameOver", (data) => {
+    alert(data.winner + " wins!");
+  });
+
+  
+
+
 });
