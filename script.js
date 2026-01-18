@@ -255,19 +255,20 @@ const HARRY_POTTER_WORDS = [
 
   // --- Player typing ---
   input.addEventListener("input", () => {
-    if (gameOver) return;
-    updateWords();
     if (input.value.endsWith(" ")) {
       const typedWord = input.value.trim();
       const nextWord = lines[0][typedWords.length];
       if (typedWord === nextWord) {
         typedWords.push(nextWord);
-        moveRope(PLAYER_PULL);
+
+        // Send move to server
+        socket.emit("playerMove", "right"); // or "left" depending on player assignment
       }
       input.value = "";
       updateWords();
     }
   });
+
 
   // --- Computer AI ---
   function startComputer() {
@@ -368,4 +369,28 @@ const HARRY_POTTER_WORDS = [
 
   // --- Initialize ---
   initLines();
+  const socket = io();
+
+
+  socket.on("init", (data) => {
+    ropePosition = data.ropePosition;
+    updateVisuals();
+    const players = Object.keys(data.players);
+    const myPlayer = players[0] === socket.id ? "left" : "right";
+  });
+
+  socket.on("updateRope", (data) => {
+    ropePosition = data.ropePosition;
+    updateVisuals();
+  });
+
+  socket.on("gameOver", (data) => {
+    alert(data.winner + " wins!");
+  });
+
+  
+
+
 });
+
+

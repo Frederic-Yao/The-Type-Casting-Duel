@@ -81,7 +81,7 @@ h1 {
 
 .option input[type="radio"]:checked + span {
   color: #FFD700;
-  transform: scale(1.12) !important;
+  transform: scale(1.12);
   text-shadow:
   0 0 7px rgba(0,0,0,0.8),
   0 0 6px #FFD700,
@@ -113,7 +113,7 @@ h1 {
 
 .wordset-option input[type="radio"]:checked + span {
   color: #FFD700;
-  transform: scale(1.12) !important;
+  transform: scale(1.12);
   text-shadow:
   0 0 7px rgba(0,0,0,0.8),
   0 0 6px #FFD700,
